@@ -1,4 +1,4 @@
-package algebras
+package free.algebras
 
 import java.util.UUID
 
@@ -10,9 +10,8 @@ object CostRepositoryOps {
 
   sealed trait CostRepositoryAlg[T]
   final case class AddCost(cost: Cost) extends CostRepositoryAlg[Unit]
-  final case class FetchCost(id: UUID) extends CostRepositoryAlg[Option[Cost]]
+  final case class FetchCost(id: UUID) extends CostRepositoryAlg[Cost]
   final case class DeleteCost(id: UUID) extends CostRepositoryAlg[Unit]
-  final case class UpdateCost(id: UUID)
 
   // For non-composed
   type CostRepository[T] = Free[CostRepositoryAlg, T]
@@ -20,7 +19,7 @@ object CostRepositoryOps {
   def addCost(cost: Cost): CostRepository[Unit] =
     Free.liftF(AddCost(cost))
 
-  def fetchCost(id: UUID): CostRepository[Option[Cost]] =
+  def fetchCost(id: UUID): CostRepository[Cost] =
     Free.liftF(FetchCost(id))
 
   def deleteCost(id: UUID): CostRepository[Unit] =
@@ -31,11 +30,14 @@ object CostRepositoryOps {
     def addCost(cost: Cost): Free[F, Unit] =
       Free.inject[CostRepositoryAlg, F](AddCost(cost))
 
-    def fetchCost(id: UUID): Free[F, Option[Cost]] =
+    def fetchCost(id: UUID): Free[F, Cost] =
       Free.inject[CostRepositoryAlg, F](FetchCost(id))
 
     def deleteCost(id: UUID): Free[F, Unit] =
       Free.inject[CostRepositoryAlg, F](DeleteCost(id))
+
+    def updateCost(cost: Cost): Free[F, Unit] =
+      Free.inject[CostRepositoryAlg, F](AddCost(cost))
   }
 
   object Costs {

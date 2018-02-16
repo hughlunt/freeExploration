@@ -7,7 +7,7 @@ import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
 
 object Entities {
   case class Invoice(id: UUID, status: InvoiceStatus)
-  case class Cost(id: UUID, value: BigDecimal)
+  case class Cost(id: UUID, value: BigDecimal, invoiceId: Option[UUID])
   case class Error (msg: String) extends AnyVal
 
   sealed trait InvoiceStatus
@@ -18,4 +18,7 @@ object Entities {
     implicit val encodeStatus: ObjectEncoder[InvoiceStatus] = deriveEncoder
     implicit val decodeStatus: Decoder[InvoiceStatus] = deriveDecoder
   }
+
+  case class SiteInitiatedRequest(id: UUID)
+  case class SponsorInitiatedRequest(id: UUID)
 }

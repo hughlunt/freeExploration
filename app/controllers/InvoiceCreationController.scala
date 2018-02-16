@@ -1,37 +1,46 @@
 package controllers
 
-import algebras.ComposedTypes.CreatableInvoice
 import cats.implicits._
 import com.google.inject.{Inject, Singleton}
-import algebras.InvoiceCreationOps.{SiteInitiatedRequest, SponsorInitiatedRequest}
 import cats.free.Free
 import domain.Entities._
-import interpreters.ComposedInterpreters._
+import free.interpreters.ComposedInterpreters
 import io.circe.generic.auto._
 import io.circe.syntax._
 import play.api.libs.circe.Circe
 import play.api.mvc._
-import programs.InvoiceCreator._
+import free.programs.InvoiceCreator._
+import tagless.interpreters.{InvoiceCreationInterpreter => TaglessInvoiceCreationInterpreter, InvoiceRepositoryInterpreter => TaglessInvoiceRepositoryInterpreter}
+import tagless.programs.{InvoiceCreator => TaglessInvoiceCreator}
 
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
 class InvoiceCreationController @Inject()(val cc: ControllerComponents,
+                                          ci: ComposedInterpreters,
+                                          tici: TaglessInvoiceCreationInterpreter,
+                                          tiri: TaglessInvoiceRepositoryInterpreter,
                                           implicit val ec: ExecutionContext
                                          ) extends AbstractController(cc) with Circe {
 
   def siteInitiated = Action.async(circe.json[SiteInitiatedRequest]) { implicit request =>
-    createInvoice(request.body)(createSiteInitiatedInvoiceProgram)
-  }
-
-  def sponsorInitiated = Action.async(circe.json[SponsorInitiatedRequest]) { implicit request =>
-    createInvoice(request.body)(createSponsorInitiatedInvoiceProgram)
-  }
-
-  private def createInvoice[A](request: A)(f: A => Free[CreatableInvoice, Either[Error, Invoice]]): Future[Result] =
-    f(request).foldMap(futureSavedInvoiceOrInvoiceInterpreter).map {
+    createSiteInitiatedInvoiceProgram(request.body).foldMap(ci.futureSavedInvoiceOrInvoiceInterpreter).value.map {
       _.fold(e => Ok(e.asJson), ip => Ok(ip.asJson))
     }.recoverWith {
       case e => Future.successful(InternalServerError(e.getMessage))
     }
+  }
+
+  def sponsorInitiated = Action.async(circe.json[SponsorInitiatedRequest]) { implicit request =>
+    createSponsorInitiatedInvoiceProgram(request.body)
+      .foldMap(ci.futureSavedInvoiceOrInvoiceInterpreter).value.map {
+      _.fold(e => Ok(e.asJson), ip => Ok(ip.asJson))
+    }.recoverWith {
+      case e => Future.successful(InternalServerError(e.getMessage))
+    }
+  }
+
+  def taglessSiteInitiated = Action.async(circe.json[SiteInitiatedRequest]) { implicit request =>
+    new TaglessInvoiceCreator(tici, tiri).createSiteInitiatedInvoiceProgram(request.body).fold(e => Ok(e.asJson), ip => Ok(ip.asJson))
+  }
 }

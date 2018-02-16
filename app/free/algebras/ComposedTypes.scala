@@ -1,9 +1,9 @@
-package algebras
+package free.algebras
 
-import algebras.CostOps.CostAlg
-import algebras.CostRepositoryOps.CostRepositoryAlg
-import algebras.InvoiceCreationOps.NewInvoiceRequestAlg
-import algebras.InvoiceRepositoryOps.InvoiceRepositoryAlg
+import free.algebras.CostOps.CostAlg
+import free.algebras.CostRepositoryOps.CostRepositoryAlg
+import free.algebras.InvoiceCreationOps.NewInvoiceRequestAlg
+import free.algebras.InvoiceRepositoryOps.InvoiceRepositoryAlg
 import cats.data.EitherK
 
 object ComposedTypes {
