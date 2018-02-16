@@ -1,7 +1,7 @@
-package domain
+package entities
 
 import cats.data.{EitherT, OptionT}
-import domain.Entities.Error
+import entities.Entities.Error
 
 import scala.concurrent.Future
 

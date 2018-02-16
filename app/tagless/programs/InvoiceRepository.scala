@@ -3,7 +3,7 @@ package tagless.programs
 import java.util.UUID
 
 import cats.Monad
-import domain.Entities.Invoice
+import entities.Entities.Invoice
 import tagless.algebras.InvoiceRepositoryOps
 
 class InvoiceRepository[F[_] : Monad](alg: InvoiceRepositoryOps[F]) {
@@ -11,5 +11,5 @@ class InvoiceRepository[F[_] : Monad](alg: InvoiceRepositoryOps[F]) {
 
   def writeInvoiceProgram(invoice: Invoice): F[Unit] = addInvoice(invoice)
 
-  def fetchInvoice(id: UUID): F[Invoice] = alg.fetchInvoice(id)
+  def fetchInvoiceProgram(id: UUID): F[Invoice] = fetchInvoice(id)
 }

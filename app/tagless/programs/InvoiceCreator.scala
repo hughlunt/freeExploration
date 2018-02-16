@@ -2,7 +2,7 @@ package tagless.programs
 
 import cats.implicits._
 import cats.Monad
-import domain.Entities.{Invoice, SiteInitiatedRequest}
+import entities.Entities.{Invoice, SiteInitiatedRequest}
 import tagless.algebras.{InvoiceCreationOps, InvoiceRepositoryOps}
 
 class InvoiceCreator[F[_] : Monad](

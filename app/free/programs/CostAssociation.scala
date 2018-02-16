@@ -7,7 +7,7 @@ import free.algebras.CostOps.{ChangesCosts, NewCostRequest}
 import free.algebras.CostRepositoryOps.Costs
 import free.algebras.InvoiceRepositoryOps.Invoices
 import cats.free.Free
-import domain.Entities._
+import entities.Entities._
 
 object CostAssociation {
 

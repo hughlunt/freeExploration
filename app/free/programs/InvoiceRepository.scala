@@ -3,7 +3,7 @@ package free.programs
 import java.util.UUID
 
 import free.algebras.InvoiceRepositoryOps._
-import domain.Entities.Invoice
+import entities.Entities.Invoice
 
 object InvoiceRepository {
 

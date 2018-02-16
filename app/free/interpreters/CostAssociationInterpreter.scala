@@ -7,8 +7,8 @@ import cats.data.EitherT
 import cats.~>
 import cats.implicits._
 import com.google.inject.Singleton
-import domain.Entities.Cost
-import domain.HelperTypes.FEither
+import entities.Entities.Cost
+import entities.HelperTypes.FEither
 
 import scala.concurrent.{ExecutionContext, Future}
 

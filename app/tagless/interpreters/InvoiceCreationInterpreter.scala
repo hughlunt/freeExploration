@@ -3,8 +3,8 @@ package tagless.interpreters
 import cats.data.EitherT
 import cats.implicits._
 import com.google.inject.Inject
-import domain.Entities._
-import domain.HelperTypes.FEither
+import entities.Entities._
+import entities.HelperTypes.FEither
 import tagless.algebras.InvoiceCreationOps
 
 import scala.concurrent.ExecutionContext

@@ -4,8 +4,8 @@ import free.algebras.InvoiceCreationOps._
 import cats.data.EitherT
 import cats.~>
 import cats.implicits._
-import domain.Entities._
-import domain.HelperTypes.FEither
+import entities.Entities._
+import entities.HelperTypes.FEither
 
 import scala.concurrent.ExecutionContext
 

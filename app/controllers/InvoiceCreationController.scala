@@ -3,7 +3,7 @@ package controllers
 import cats.implicits._
 import com.google.inject.{Inject, Singleton}
 import cats.free.Free
-import domain.Entities._
+import entities.Entities._
 import free.interpreters.ComposedInterpreters
 import io.circe.generic.auto._
 import io.circe.syntax._
@@ -42,5 +42,8 @@ class InvoiceCreationController @Inject()(val cc: ControllerComponents,
 
   def taglessSiteInitiated = Action.async(circe.json[SiteInitiatedRequest]) { implicit request =>
     new TaglessInvoiceCreator(tici, tiri).createSiteInitiatedInvoiceProgram(request.body).fold(e => Ok(e.asJson), ip => Ok(ip.asJson))
+      .recoverWith {
+      case e => Future.successful(InternalServerError(e.getMessage))
+    }
   }
 }

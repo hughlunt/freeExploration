@@ -7,8 +7,8 @@ import cats.data.EitherT
 import cats.~>
 import cats.implicits._
 import com.google.inject.{Inject, Singleton}
-import domain.Entities.{Draft, Invoice}
-import domain.HelperTypes.FEither
+import entities.Entities.{Draft, Invoice}
+import entities.HelperTypes.FEither
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -23,4 +23,3 @@ class InvoiceRepositoryInterpreter @Inject()(implicit ec: ExecutionContext) {
     }
   }
 }
-

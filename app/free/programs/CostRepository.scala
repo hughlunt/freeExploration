@@ -3,7 +3,7 @@ package free.programs
 import java.util.UUID
 
 import free.algebras.CostRepositoryOps._
-import domain.Entities.Cost
+import entities.Entities.Cost
 
 object CostRepository {
 
