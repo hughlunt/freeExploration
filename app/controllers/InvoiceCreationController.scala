@@ -10,7 +10,10 @@ import io.circe.syntax._
 import play.api.libs.circe.Circe
 import play.api.mvc._
 import free.programs.InvoiceCreator._
-import tagless.interpreters.{InvoiceCreationInterpreter => TaglessInvoiceCreationInterpreter, InvoiceRepositoryInterpreter => TaglessInvoiceRepositoryInterpreter}
+import tagless.interpreters.{InvoiceCreationInterpreter => TaglessInvoiceCreationInterpreter,
+InvoiceRepositoryInterpreter => TaglessInvoiceRepositoryInterpreter,
+CostRepositoryInterpreter => TaglessCostRepositoryInterpreter,
+CostAssociationInterpreter => TaglessCostAssociationInterpreter}
 import tagless.programs.{SiteInitiatedInvoiceCreator, SponsorInitiatedInvoiceCreator}
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -20,6 +23,8 @@ class InvoiceCreationController @Inject()(val cc: ControllerComponents,
                                           ci: ComposedInterpreters,
                                           tici: TaglessInvoiceCreationInterpreter,
                                           tiri: TaglessInvoiceRepositoryInterpreter,
+                                          tcri: TaglessCostRepositoryInterpreter,
+                                          tcci: TaglessCostAssociationInterpreter,
                                           implicit val ec: ExecutionContext
                                          ) extends AbstractController(cc) with Circe {
 
@@ -45,5 +50,12 @@ class InvoiceCreationController @Inject()(val cc: ControllerComponents,
       .recoverWith {
       case e => Future.successful(InternalServerError(e.getMessage))
     }
+  }
+
+  def taglessSponsorInitiated = Action.async(circe.json[SponsorInitiatedRequest]) { implicit request =>
+    new SponsorInitiatedInvoiceCreator(tici, tiri, tcri, tcci).createSponsorInitiatedInvoiceProgram(request.body).fold(e => Ok(e.asJson), ip => Ok(ip.asJson))
+      .recoverWith {
+        case e => Future.successful(InternalServerError(e.getMessage))
+      }
   }
 }

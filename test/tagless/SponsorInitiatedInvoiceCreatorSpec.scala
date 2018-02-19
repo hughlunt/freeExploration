@@ -11,19 +11,20 @@ import tagless.programs.SponsorInitiatedInvoiceCreator
 
 class SponsorInitiatedInvoiceCreatorSpec extends FlatSpec with Matchers {
 
+  // Test Interpreters
   val transformAlgebra: InvoiceCreationOps[Id] = new InvoiceCreationOps[Id] {
-    override def transformSiteInitiatedRequest(request: SiteInitiatedRequest): Id[Invoice] = dummyInvoice
     override def transformSponsorInitiatedRequest(request: Entities.SponsorInitiatedRequest): Id[(Invoice, Cost)] = (dummyInvoice, disassociatedCost)
+    override def transformSiteInitiatedRequest(request: SiteInitiatedRequest): Id[Invoice] = ???
   }
 
   val invoiceRepoAlgebra: InvoiceRepositoryOps[Id] = new InvoiceRepositoryOps[Id] {
-    override def fetchInvoice(id: UUID): Id[Invoice] = ??? // Method not used in this test
     override def addInvoice(invoice: Invoice): Id[Unit] = ()
+    override def fetchInvoice(id: UUID): Id[Invoice] = ??? // Method not used in this test
   }
 
   val costRepoAlgebra: CostRepositoryOps[Id] = new CostRepositoryOps[Id] {
-    override def fetchCost(id: UUID): Id[Cost] = ??? // Method not used in this test
     override def addCost(cost: Cost): Id[Unit] = ()
+    override def fetchCost(id: UUID): Id[Cost] = ??? // Method not used in this test
     override def deleteCost(id: UUID): Id[Unit] = ??? // Method not used in this test
   }
 
@@ -32,8 +33,9 @@ class SponsorInitiatedInvoiceCreatorSpec extends FlatSpec with Matchers {
     override def disassociateCostFromInvoice(costId: UUID): Id[Cost] = ??? // Not used in this test
   }
 
-  val programs = new SponsorInitiatedInvoiceCreator(transformAlgebra, invoiceRepoAlgebra, costRepoAlgebra, costOps)
-  it should "Transform a sponsor initiated invoice request" in {
+  // Tests
+  it should "Create a sponsor initiated invoice" in {
+    val programs = new SponsorInitiatedInvoiceCreator(transformAlgebra, invoiceRepoAlgebra, costRepoAlgebra, costOps)
     programs.createSponsorInitiatedInvoiceProgram(sponsorRequest) shouldBe dummyInvoice
   }
 
