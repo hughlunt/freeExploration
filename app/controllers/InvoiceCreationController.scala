@@ -11,7 +11,7 @@ import play.api.libs.circe.Circe
 import play.api.mvc._
 import free.programs.InvoiceCreator._
 import tagless.interpreters.{InvoiceCreationInterpreter => TaglessInvoiceCreationInterpreter, InvoiceRepositoryInterpreter => TaglessInvoiceRepositoryInterpreter}
-import tagless.programs.{InvoiceCreator => TaglessInvoiceCreator}
+import tagless.programs.{SiteInitiatedInvoiceCreator, SponsorInitiatedInvoiceCreator}
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -41,7 +41,7 @@ class InvoiceCreationController @Inject()(val cc: ControllerComponents,
   }
 
   def taglessSiteInitiated = Action.async(circe.json[SiteInitiatedRequest]) { implicit request =>
-    new TaglessInvoiceCreator(tici, tiri).createSiteInitiatedInvoiceProgram(request.body).fold(e => Ok(e.asJson), ip => Ok(ip.asJson))
+    new SiteInitiatedInvoiceCreator(tici, tiri).createSiteInitiatedInvoiceProgram(request.body).fold(e => Ok(e.asJson), ip => Ok(ip.asJson))
       .recoverWith {
       case e => Future.successful(InternalServerError(e.getMessage))
     }

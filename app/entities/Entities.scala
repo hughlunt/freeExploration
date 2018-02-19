@@ -20,5 +20,5 @@ object Entities {
   }
 
   case class SiteInitiatedRequest(id: UUID)
-  case class SponsorInitiatedRequest(id: UUID)
+  case class SponsorInitiatedRequest(cost: Cost, id: UUID)
 }

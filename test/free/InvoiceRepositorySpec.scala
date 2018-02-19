@@ -1,4 +1,4 @@
-package controllers.free
+package free
 
 import java.util.UUID
 

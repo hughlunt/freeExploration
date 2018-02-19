@@ -1,4 +1,4 @@
-package controllers.free
+package free
 
 import java.util.UUID
 
@@ -8,7 +8,7 @@ import free.algebras.InvoiceCreationOps.{NewInvoiceRequestAlg, TransformSiteInit
 import free.algebras.InvoiceRepositoryOps.{AddInvoice, FetchInvoice, InvoiceRepositoryAlg}
 import org.scalatest._
 
-class InvoiceCreatorSpec extends FlatSpec with Matchers {
+class SiteInitiatedInvoiceCreatorSpec extends FlatSpec with Matchers {
   import free.programs.InvoiceCreator._
 
   def testTransformInterpreter = new (NewInvoiceRequestAlg ~> Id) {

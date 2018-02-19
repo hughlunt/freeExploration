@@ -5,7 +5,7 @@ import cats.Monad
 import entities.Entities.{Invoice, SiteInitiatedRequest}
 import tagless.algebras.{InvoiceCreationOps, InvoiceRepositoryOps}
 
-class InvoiceCreator[F[_] : Monad](
+class SiteInitiatedInvoiceCreator[F[_] : Monad](
                                     requestTransformationAlg: InvoiceCreationOps[F],
                                     invoiceRepositoryAlg: InvoiceRepositoryOps[F]) {
   import requestTransformationAlg._, invoiceRepositoryAlg._

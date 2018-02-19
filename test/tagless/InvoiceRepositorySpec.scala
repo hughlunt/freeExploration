@@ -1,4 +1,4 @@
-package controllers.tagless
+package tagless
 
 import java.util.UUID
 
