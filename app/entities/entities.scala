@@ -1,4 +1,4 @@
-import cats.data.{EitherT, OptionT}
+import cats.data.EitherT
 
 import scala.concurrent.Future
 import enumeratum._
@@ -10,6 +10,7 @@ package object entities {
   case class Invoice(id: UUID, status : InvoiceStatus)
   case class Cost(id: UUID, value: BigDecimal, invoiceId: Option[UUID])
   case class Error (msg: String) extends AnyVal
+
 
   sealed trait InvoiceStatus extends EnumEntry
   object InvoiceStatus extends Enum[InvoiceStatus] with CirceEnum[InvoiceStatus] {
@@ -24,6 +25,5 @@ package object entities {
 
   object HelperTypes {
     type FEither[A] = EitherT[Future, Error, A]
-    type FutureOfOption[A] = OptionT[Future, A]
   }
 }

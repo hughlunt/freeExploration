@@ -25,7 +25,7 @@ GET     /                         controllers.SwaggerController.index
 #      schema:
 #        $ref: '#/components/schemas/entities.Invoice'
 ###
-POST    /v2/invoices              controllers.InvoiceCreationController.siteInitiated
+POST    /v2/invoices              controllers.free.InvoiceCreationController.siteInitiated
 
 ###
 #  summary: Fetch an invoice
@@ -37,7 +37,7 @@ POST    /v2/invoices              controllers.InvoiceCreationController.siteInit
 #      schema:
 #        $ref: '#/components/schemas/entities.Invoice'
 ###
-GET     /v2/invoices/:id          controllers.InvoiceRetrievalController.getSingleInvoice(id: java.util.UUID)
+GET     /v2/invoices/:id          controllers.free.InvoiceRetrievalController.getSingleInvoice(id: java.util.UUID)
 
 ###
 #  summary: Create an invoice
@@ -59,7 +59,7 @@ GET     /v2/invoices/:id          controllers.InvoiceRetrievalController.getSing
 #    400:
 #      description: Bad Request
 ###
-POST    /v3/invoices                controllers.InvoiceCreationController.taglessSiteInitiated
+POST    /v3/invoices                controllers.tagless.InvoiceCreationController.siteInitiated
 
 ###
 #  summary: Create a request for invoice
@@ -79,7 +79,7 @@ POST    /v3/invoices                controllers.InvoiceCreationController.tagles
 #    400:
 #      description: Bad Request
 ###
-POST    /v3/invoices/rfi            controllers.InvoiceCreationController.taglessSponsorInitiated
+POST    /v3/invoices/rfi            controllers.tagless.InvoiceCreationController.sponsorInitiated
 
 ###
 #  summary: Fetch an invoice
@@ -91,4 +91,4 @@ POST    /v3/invoices/rfi            controllers.InvoiceCreationController.tagles
 #      schema:
 #        $ref: '#/components/schemas/entities.Invoice'
 ###
-GET     /v3/invoices/:id            controllers.InvoiceRetrievalController.getTaglessSingleInvoice(id: java.util.UUID)
+GET     /v3/invoices/:id            controllers.tagless.InvoiceRetrievalController.getSingleInvoice(id: java.util.UUID)
