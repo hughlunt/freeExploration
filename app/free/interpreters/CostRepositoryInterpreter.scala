@@ -6,7 +6,7 @@ import free.algebras.CostRepositoryOps.{AddCost, CostRepositoryAlg, DeleteCost, 
 import cats.data._
 import cats.~>
 import cats.implicits._
-import entities.Entities.Cost
+import entities.Cost
 import entities.HelperTypes.FEither
 
 import scala.concurrent.{ExecutionContext, Future}

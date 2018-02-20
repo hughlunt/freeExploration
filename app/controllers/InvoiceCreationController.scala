@@ -3,7 +3,7 @@ package controllers
 import cats.implicits._
 import com.google.inject.{Inject, Singleton}
 import cats.free.Free
-import entities.Entities._
+import entities._
 import free.interpreters.ComposedInterpreters
 import io.circe.generic.auto._
 import io.circe.syntax._

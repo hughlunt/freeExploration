@@ -4,7 +4,7 @@ import java.util.UUID
 
 import cats.InjectK
 import cats.free.Free
-import entities.Entities.Cost
+import entities.Cost
 
 object CostRepositoryOps {
 

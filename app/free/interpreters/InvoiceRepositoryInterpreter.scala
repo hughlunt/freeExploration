@@ -7,8 +7,9 @@ import cats.data.EitherT
 import cats.~>
 import cats.implicits._
 import com.google.inject.{Inject, Singleton}
-import entities.Entities.{Draft, Invoice}
+import entities.Invoice
 import entities.HelperTypes.FEither
+import entities.InvoiceStatus.Draft
 
 import scala.concurrent.{ExecutionContext, Future}
 

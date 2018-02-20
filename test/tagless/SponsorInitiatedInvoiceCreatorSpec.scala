@@ -3,8 +3,8 @@ package tagless
 import java.util.UUID
 
 import cats.Id
-import entities.Entities
-import entities.Entities._
+import entities.InvoiceStatus.Draft
+import entities._
 import org.scalatest.{FlatSpec, Matchers}
 import tagless.algebras.{CostOps, CostRepositoryOps, InvoiceCreationOps, InvoiceRepositoryOps}
 import tagless.programs.SponsorInitiatedInvoiceCreator
@@ -13,7 +13,7 @@ class SponsorInitiatedInvoiceCreatorSpec extends FlatSpec with Matchers {
 
   // Test Interpreters
   val transformAlgebra: InvoiceCreationOps[Id] = new InvoiceCreationOps[Id] {
-    override def transformSponsorInitiatedRequest(request: Entities.SponsorInitiatedRequest): Id[(Invoice, Cost)] = (dummyInvoice, disassociatedCost)
+    override def transformSponsorInitiatedRequest(request: SponsorInitiatedRequest): Id[(Invoice, Cost)] = (dummyInvoice, disassociatedCost)
     override def transformSiteInitiatedRequest(request: SiteInitiatedRequest): Id[Invoice] = ???
   }
 

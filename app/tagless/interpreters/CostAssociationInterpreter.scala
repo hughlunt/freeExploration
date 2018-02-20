@@ -5,7 +5,7 @@ import java.util.UUID
 import cats.data.EitherT
 import cats.implicits._
 import com.google.inject.Inject
-import entities.Entities.Cost
+import entities.Cost
 import entities.HelperTypes.FEither
 import tagless.algebras.CostOps
 

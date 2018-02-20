@@ -1,0 +1,7 @@
+---
+  - type: entities\.package\.InvoiceStatus
+    specAsParameter:
+     - type: enum
+  - type: java\.util\.UUID
+    specAsParameter:
+     - type: string

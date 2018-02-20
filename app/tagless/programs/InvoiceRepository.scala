@@ -3,7 +3,7 @@ package tagless.programs
 import java.util.UUID
 
 import cats.Monad
-import entities.Entities.Invoice
+import entities.Invoice
 import tagless.algebras.InvoiceRepositoryOps
 
 class InvoiceRepository[F[_] : Monad](alg: InvoiceRepositoryOps[F]) {

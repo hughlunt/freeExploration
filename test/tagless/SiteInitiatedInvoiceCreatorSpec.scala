@@ -5,8 +5,8 @@ import java.util.UUID
 import cats.Id
 import cats.data.Writer
 import cats.implicits._
-import entities.Entities
-import entities.Entities._
+import entities.InvoiceStatus.Draft
+import entities._
 import org.scalatest.{FlatSpec, Matchers}
 import tagless.algebras.{InvoiceCreationOps, InvoiceRepositoryOps}
 import tagless.programs.SiteInitiatedInvoiceCreator
@@ -17,7 +17,7 @@ class SiteInitiatedInvoiceCreatorSpec extends FlatSpec with Matchers {
 
   val transformAlgebra: InvoiceCreationOps[Id] = new InvoiceCreationOps[Id] {
     override def transformSiteInitiatedRequest(request: SiteInitiatedRequest): Id[Invoice] = dummyInvoice
-    override def transformSponsorInitiatedRequest(request: Entities.SponsorInitiatedRequest): Id[(Invoice, Cost)] = ??? // Not used in this test
+    override def transformSponsorInitiatedRequest(request: SponsorInitiatedRequest): Id[(Invoice, Cost)] = ??? // Not used in this test
   }
 
   val repoAlgebra: InvoiceRepositoryOps[Id] = new InvoiceRepositoryOps[Id] {
@@ -34,7 +34,7 @@ class SiteInitiatedInvoiceCreatorSpec extends FlatSpec with Matchers {
   it should "Call the correct functions" in {
     val transformWithLogAlg: InvoiceCreationOps[Log] = new InvoiceCreationOps[Log] {
       override def transformSiteInitiatedRequest(request: SiteInitiatedRequest): Log[Invoice] = Writer(List("Transforming Invoice Request"), dummyInvoice)
-      override def transformSponsorInitiatedRequest(request: Entities.SponsorInitiatedRequest): Log[(Invoice, Cost)] = ??? // Not used in this test
+      override def transformSponsorInitiatedRequest(request: SponsorInitiatedRequest): Log[(Invoice, Cost)] = ??? // Not used in this test
     }
 
     val repoWithLogAlg: InvoiceRepositoryOps[Log] = new InvoiceRepositoryOps[Log] {

@@ -4,7 +4,7 @@ import java.util.UUID
 
 import cats.InjectK
 import cats.free.Free
-import entities.Entities.Invoice
+import entities.Invoice
 object InvoiceRepositoryOps {
 
   sealed trait InvoiceRepositoryAlg[T]

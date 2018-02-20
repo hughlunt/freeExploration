@@ -5,8 +5,9 @@ import java.util.UUID
 import cats.data.EitherT
 import cats.implicits._
 import com.google.inject.Inject
-import entities.Entities.{Draft, Invoice}
+import entities.Invoice
 import entities.HelperTypes.FEither
+import entities.InvoiceStatus.Draft
 import tagless.algebras.InvoiceRepositoryOps
 
 import scala.concurrent.{ExecutionContext, Future}

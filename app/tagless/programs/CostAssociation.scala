@@ -3,7 +3,7 @@ package tagless.programs
 import java.util.UUID
 
 import cats.Monad
-import entities.Entities.Cost
+import entities.Cost
 import tagless.algebras.CostOps
 
 class CostAssociation[F[_] : Monad](alg: CostOps[F]) {

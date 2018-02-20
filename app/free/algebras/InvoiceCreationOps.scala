@@ -2,7 +2,7 @@ package free.algebras
 
 import cats.InjectK
 import cats.free.Free
-import entities.Entities._
+import entities._
 
 object InvoiceCreationOps {
 

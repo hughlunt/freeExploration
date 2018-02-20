@@ -3,7 +3,8 @@ package tagless
 import java.util.UUID
 
 import cats.Id
-import entities.Entities.{Draft, Invoice}
+import entities.Invoice
+import entities.InvoiceStatus.Draft
 import tagless.algebras.InvoiceRepositoryOps
 import org.scalatest.{FlatSpec, Matchers}
 import tagless.programs.InvoiceRepository

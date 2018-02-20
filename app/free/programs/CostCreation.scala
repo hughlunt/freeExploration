@@ -4,7 +4,7 @@ import free.algebras.ComposedTypes.CreatableCost
 import free.algebras.CostOps.{ChangesCosts, NewCostRequest}
 import free.algebras.CostRepositoryOps.Costs
 import cats.free.Free
-import entities.Entities._
+import entities._
 
 object CostCreation {
 

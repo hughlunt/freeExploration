@@ -4,7 +4,8 @@ import java.util.UUID
 
 import cats.{Id, ~>}
 import cats.implicits._
-import entities.Entities.{Draft, Invoice}
+import entities.Invoice
+import entities.InvoiceStatus.Draft
 import free.algebras.InvoiceRepositoryOps._
 import org.scalatest._
 

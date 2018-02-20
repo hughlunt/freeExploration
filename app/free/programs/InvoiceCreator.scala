@@ -4,7 +4,7 @@ import free.algebras.ComposedTypes.CreatableInvoice
 import free.algebras.InvoiceCreationOps._
 import free.algebras.InvoiceRepositoryOps.Invoices
 import cats.free.Free
-import entities.Entities._
+import entities._
 
 object InvoiceCreator {
 

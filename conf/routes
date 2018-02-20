@@ -1,19 +1,94 @@
-# Routes
-# This file defines all application routes (Higher priority routes first)
-# https://www.playframework.com/documentation/latest/ScalaRouting
-# ~~~~
+### NoDocs ###
+GET   /docs/swagger-ui/*file      controllers.Assets.at(path:String="/public/lib/swagger-ui", file:String)
 
-# An example controller showing a sample home page
-GET     /                         controllers.HomeController.index
+### NoDocs ###
+GET   /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 
-# Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file             controllers.Assets.versioned(path="/public", file: Asset)
+### NoDocs ###
+GET     /                         controllers.SwaggerController.index
 
-# Free Monad version
+###
+#  summary: Create an invoice
+#  tags:
+#    - Free Monad
+#  requestBody:
+#    required: true
+#    content:
+#      application/json:
+#        schema:
+#          $ref: '#/components/schemas/entities.SiteInitiatedRequest'
+#        example:
+#          id: "07c7e6ee-d898-4408-881c-53e7a447249b"
+#  responses:
+#    200:
+#      description: Success
+#      schema:
+#        $ref: '#/components/schemas/entities.Invoice'
+###
 POST    /v2/invoices              controllers.InvoiceCreationController.siteInitiated
+
+###
+#  summary: Fetch an invoice
+#  tags:
+#    - Free Monad
+#  responses:
+#    200:
+#      description: Success
+#      schema:
+#        $ref: '#/components/schemas/entities.Invoice'
+###
 GET     /v2/invoices/:id          controllers.InvoiceRetrievalController.getSingleInvoice(id: java.util.UUID)
 
-# Tagless final version
+###
+#  summary: Create an invoice
+#  tags:
+#    - Finally Tagless
+#  requestBody:
+#    required: true
+#    content:
+#      application/json:
+#        schema:
+#          $ref: '#/components/schemas/entities.SiteInitiatedRequest'
+#        example:
+#          id: "07c7e6ee-d898-4408-881c-53e7a447249b"
+#  responses:
+#    200:
+#      description: Success
+#      schema:
+#        $ref: '#/components/schemas/entities.Invoice'
+#    400:
+#      description: Bad Request
+###
 POST    /v3/invoices                controllers.InvoiceCreationController.taglessSiteInitiated
+
+###
+#  summary: Create a request for invoice
+#  tags:
+#    - Finally Tagless
+#  requestBody:
+#    required: true
+#    content:
+#      application/json:
+#        schema:
+#          $ref: '#/components/schemas/entities.SponsorInitiatedRequest'
+#  responses:
+#    200:
+#      description: Success
+#      schema:
+#        $ref: '#/components/schemas/entities.Invoice'
+#    400:
+#      description: Bad Request
+###
 POST    /v3/invoices/rfi            controllers.InvoiceCreationController.taglessSponsorInitiated
+
+###
+#  summary: Fetch an invoice
+#  tags:
+#    - Finally Tagless
+#  responses:
+#    200:
+#      description: Success
+#      schema:
+#        $ref: '#/components/schemas/entities.Invoice'
+###
 GET     /v3/invoices/:id            controllers.InvoiceRetrievalController.getTaglessSingleInvoice(id: java.util.UUID)

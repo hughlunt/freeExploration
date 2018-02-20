@@ -4,7 +4,7 @@ import java.util.UUID
 
 import cats.InjectK
 import cats.free.Free
-import entities.Entities.{Cost, Error}
+import entities.{Cost, Error}
 
 object CostOps {
 

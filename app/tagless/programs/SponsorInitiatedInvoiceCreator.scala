@@ -2,7 +2,7 @@ package tagless.programs
 
 import cats.implicits._
 import cats.Monad
-import entities.Entities.{Invoice, SponsorInitiatedRequest}
+import entities.{Invoice, SponsorInitiatedRequest}
 import tagless.algebras.{CostRepositoryOps, InvoiceRepositoryOps, CostOps, InvoiceCreationOps}
 
 
